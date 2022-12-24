@@ -1,4 +1,4 @@
-# csprite.github.io
+# [csprite.github.io](https://csprite.github.io)
 website for the tiny pixel art editor
 
 ---

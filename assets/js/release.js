@@ -1,17 +1,32 @@
+// Returns Difference Between 2 Dates In Hours
+function TimeDifference(date1, date2) {
+	return Math.abs(date1 - date2) / 36e5; // 36e5 = 60 * 60 * 1000
+}
+
 async function LoadLatestStableBuilds() {
 	let downloadContent = document.getElementById("downloadContent");
 	try {
-		const response = await fetch("https://api.github.com/repos/pegvin/csprite/releases/latest");
-		const json = await response.json();
+		let GhReleases = localStorage.getItem(`GhReleases`);
+		if (GhReleases) GhReleases = JSON.parse(GhReleases);
+		if (!GhReleases || TimeDifference(new Date().getTime(), GhReleases.timestamp) >= 1) {
+			console.log("No Valid Gh Releases Cache Found!");
+			const response = await fetch("https://api.github.com/repos/pegvin/csprite/releases/latest");
+			GhReleases = await response.json();
+			GhReleases.timestamp = new Date().getTime();
+			localStorage.setItem(`GhReleases`, JSON.stringify(GhReleases));
+		} else {
+			console.log("Valid Gh Releases Found!");
+		}
+
 		downloadContent.innerHTML = `
-<p>The current stable release of csprite is ${json.tag_name.substring(1, json.tag_name.length)} (${json.published_at}).</p>
+<p>The current stable release of csprite is ${GhReleases.tag_name.substring(1, GhReleases.tag_name.length)} (${GhReleases.published_at}).</p>
 <ul>`;
-		for (var i = 0; i < json.assets.length; i++) {
-			downloadContent.innerHTML += `<li><a href="${json.assets[i].browser_download_url}">${json.assets[i].name}</a></li>`
+		for (var i = 0; i < GhReleases.assets.length; i++) {
+			downloadContent.innerHTML += `<li><a href="${GhReleases.assets[i].browser_download_url}">${GhReleases.assets[i].name}</a></li>`
 		}
 		downloadContent.innerHTML += `
-<li><a href="${json.zipball_url}">Source code (.zip)</a></li>
-<li><a href="${json.tarball_url}">Source code (.tar.gz)</a></li>
+<li><a href="${GhReleases.zipball_url}">Source code (.zip)</a></li>
+<li><a href="${GhReleases.tarball_url}">Source code (.tar.gz)</a></li>
 </ul>
 `;
 	} catch(err) {
@@ -23,26 +38,37 @@ async function LoadLatestStableBuilds() {
 async function LoadLatestGitBuilds() {
 	let downloadContent = document.getElementById("downloadContentGit");
 	try {
-		const runs_response = await fetch("https://api.github.com/repos/pegvin/csprite/actions/runs");
-		const runs_json = await runs_response.json();
-		let RunInformation = null;
-		for (var i = 0; i < runs_json.workflow_runs.length; i++) {
-			if (runs_json.workflow_runs[i].conclusion == "success" && runs_json.workflow_runs[i].head_branch == "master") {
-				RunInformation = runs_json.workflow_runs[i];
+		let RunInformation = localStorage.getItem(`LatestGitBuilds`);
+		if (RunInformation) RunInformation = JSON.parse(RunInformation);
+		if (!RunInformation || TimeDifference(new Date().getTime(), RunInformation.timestamp) >= 1) {
+			console.log("No Valid Run Information Cache Found!");
+			const runs_response = await fetch("https://api.github.com/repos/pegvin/csprite/actions/runs");
+			const runs_json = await runs_response.json();
+			for (var i = 0; i < runs_json.workflow_runs.length; i++) {
+				if (runs_json.workflow_runs[i].conclusion == "success" && runs_json.workflow_runs[i].head_branch == "master") {
+					RunInformation = runs_json.workflow_runs[i];
+					break;
+				}
 			}
-		}
-		if (RunInformation == null) {
-			throw new Error("Cannot find a successful workflow run!");
+			if (RunInformation == null) {
+				throw new Error("Cannot find a successful workflow run!");
+			}
+
+			const response = await fetch(RunInformation.artifacts_url);
+			const json = await response.json();
+			RunInformation.artifacts = json.artifacts;
+			RunInformation.timestamp = new Date().getTime();
+			localStorage.setItem(`LatestGitBuilds`, JSON.stringify(RunInformation));
+		} else {
+			console.log("Valid Run Information Found!");
 		}
 
-		const response = await fetch(RunInformation.artifacts_url);
-		const json = await response.json();
 		downloadContent.innerHTML = `
 <p>The latest git build of csprite (${RunInformation.created_at}) provides latest features but the features might be un-documented & the builds might be unstable.</p>
 <ul>`;
-		for (var i = 0; i < json.artifacts.length; i++) {
-			if (json.artifacts[i].name == "src-assets" || json.artifacts[i].name == "data") { continue; }
-			downloadContent.innerHTML += `<li><a href="${json.artifacts[i].archive_download_url}">${json.artifacts[i].name}</a></li>`
+		for (var i = 0; i < RunInformation.artifacts.length; i++) {
+			if (RunInformation.artifacts[i].name == "src-assets" || RunInformation.artifacts[i].name == "data") { continue; }
+			downloadContent.innerHTML += `<li><a href="${RunInformation.artifacts[i].archive_download_url}">${RunInformation.artifacts[i].name}</a></li>`
 		}
 	} catch(err) {
 		console.info(err);
@@ -51,7 +77,6 @@ async function LoadLatestGitBuilds() {
 }
 
 window.onload = function() {
-	marked.setOptions({ gfm: true, smartypants: true });
 	LoadLatestStableBuilds();
 	LoadLatestGitBuilds();
 }

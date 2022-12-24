@@ -5,38 +5,28 @@
 	/* Set sans-serif & mono fonts */
 	--mono-font: 'Inconsolata', monospace;
 	--sans-font: var(--mono-font);
-
-	/* Default (light) theme */
-	--bg: #fff;
-	--accent-bg: #f5f7ff;
-	--text: #212121;
-	--text-light: #585858;
+	color-scheme: dark;
+	--bg: #111314;
+	--accent-bg: #222;
+	--text: #dcdcdc;
+	--text-light: #ababab;
 	--border: #898EA4;
-	--accent: #0d47a1;
+	--accent: #8681ab;
 	--code: #CF8ACB;
-	--preformatted: #444;
+	--preformatted: #ccc;
 	--marked: #ffdd33;
-	--disabled: #efefef;
+	--disabled: #111;
 }
 
-/* Dark theme */
-@media (prefers-color-scheme: dark) {
-	:root {
-		color-scheme: dark;
-		--bg: #111314;
-		--accent-bg: #222;
-		--text: #dcdcdc;
-		--text-light: #ababab;
-		--accent: #8681ab;
-		--code: #CF8ACB;
-		--preformatted: #ccc;
-		--disabled: #111;
-	}
-	/* Add a bit of transparency so light media isn't so glaring in dark mode */
-	img,
-	video {
-		opacity: 0.8;
-	}
+/* Add a bit of transparency so light media isn't so glaring in dark mode */
+img,
+video {
+	opacity: 0.8;
+}
+
+code.hljs {
+	padding: 0 !important;
+	background-color: var(--accent-bg) !important;
 }
 
 /* Reset box-sizing */

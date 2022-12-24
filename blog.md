@@ -1,5 +1,5 @@
 ---
 layout: posts
 permalink: "/blog/"
-title: Blog
+title: "Blog"
 ---

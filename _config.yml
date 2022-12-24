@@ -1,0 +1,24 @@
+title: csprite
+description: A tiny pixel art editor
+baseurl: ""
+url: ""
+github_username: pegvin
+date_format: "%m.%d.%Y"
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+defaults:
+  - scope:
+      path: '_posts/*'
+    values:
+      permalink: /blog/post/:title:output_ext
+

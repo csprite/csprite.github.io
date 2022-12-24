@@ -1,0 +1,49 @@
+---
+layout: common
+---
+<style type="text/css">
+	.MainContainer {
+		display: block;
+		text-align: center;
+	}
+	.ContainerRight {
+		text-align: left;
+	}
+	@media only screen and (max-width: 725px) {
+		.MainContainer {
+			margin: 11vh auto 0 auto;
+		}
+	}
+	@media only screen and (min-width: 725px) {
+		.MainContainer {
+			margin-top: 27vh;
+		}
+		.ContainerLeft {
+			float: left;
+		}
+		.ContainerRight {
+			float: right;
+		}
+	}
+</style>
+
+<div class="MainContainer">
+	<div class="ContainerLeft">
+		<img src="/assets/favicon.png">
+		<h1 style="margin: 0; font-size: 3.75rem;">CSprite</h1>
+		<p style="margin-top: 0;">A <small>Tiny</small> Pixel Art Editor.</p>
+		<a href="/downloads/"><button>Downloads</button></a>
+		<a href="https://github.com/pegvin/csprite" target="_blank"><button>GitHub</button></a>
+	</div>
+
+	<div class="ContainerRight">
+		<h3>Features:</h3>
+		<ul>
+			<li>Beginner friendly</li>
+			<li>Extremely fast</li>
+			<li>Small & portable (Just ~1 MB)</li>
+			<li>Works on Windows, Linux & Mac</li>
+			<li>Free & open source</li>
+		</ul>
+	</div>
+</div>

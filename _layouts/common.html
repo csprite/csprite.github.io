@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="/favicon.png" />
-	<title>CSprite - Downloads</title>
+	<link rel="icon" type="image/png" href="/assets/favicon.png" />
+	<title>{{ page.title }}</title>
 	<link rel="stylesheet" type="text/css" href="/assets/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/simple.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/post.css">
@@ -13,24 +13,21 @@
 </head>
 <body>
 
-<div class="MainContent">
-	<h1>Downloads</h1>
-	<h2>Latest Stable Builds</h2>
-	<div id="downloadContent">
-		<p>Loading...</p>
+{%- if page.layout == "home" -%}
+	{{content}}
+{%- else -%}
+	<div class="MainContainer">
+		{{content}}
 	</div>
-	<h2>Latest Git Builds</h2>
-	<div id="downloadContentGit">
-		<p>Loading...</p>
-	</div>
-</div>
+{%- endif -%}
 <footer>
 	<nav>
 		<a style="display: inline-block; text-align: justify;" href="/">Home</a> |
+		<a style="display: inline-block; text-align: justify;" href="/blog/">Blog</a> |
+		<a style="display: inline-block; text-align: justify;" href="/wiki/">Wiki</a> |
 		<a style="display: inline-block; text-align: justify;" href="https://github.com/pegvin/csprite">GitHub</a>
 	</nav>
 </footer>
 
-<script src="/assets/js/release.js" defer></script>
 </body>
 </html>

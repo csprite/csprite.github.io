@@ -54,9 +54,6 @@ async function LoadLatestGitBuilds() {
 				throw new Error("Cannot find a successful workflow run!");
 			}
 
-			const response = await fetch(RunInformation.artifacts_url);
-			const json = await response.json();
-			RunInformation.html_url = json.html_url;
 			RunInformation.timestamp = new Date().getTime();
 			localStorage.setItem(`LatestGitBuilds`, JSON.stringify(RunInformation));
 		} else {

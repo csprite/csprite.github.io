@@ -56,20 +56,14 @@ async function LoadLatestGitBuilds() {
 
 			const response = await fetch(RunInformation.artifacts_url);
 			const json = await response.json();
-			RunInformation.artifacts = json.artifacts;
+			RunInformation.html_url = json.html_url;
 			RunInformation.timestamp = new Date().getTime();
 			localStorage.setItem(`LatestGitBuilds`, JSON.stringify(RunInformation));
 		} else {
 			console.log("Valid Run Information Found!");
 		}
 
-		downloadContent.innerHTML = `
-<p>The latest git build of csprite (${RunInformation.created_at}) provides latest features but the features might be un-documented & the builds might be unstable.</p>
-<ul>`;
-		for (var i = 0; i < RunInformation.artifacts.length; i++) {
-			if (RunInformation.artifacts[i].name == "src-assets" || RunInformation.artifacts[i].name == "data") { continue; }
-			downloadContent.innerHTML += `<li><a href="${RunInformation.artifacts[i].archive_download_url}">${RunInformation.artifacts[i].name}</a></li>`
-		}
+		downloadContent.innerHTML = `<p><a href="${RunInformation.html_url}" target="_blank">Download the latest git build</a> of csprite (${RunInformation.created_at}) provides latest features but the features might be un-documented & the builds might be unstable.</p>`;
 	} catch(err) {
 		console.info(err);
 		downloadContent.innerHTML = `<p>Failed To Fetch Download Links, Go To <a href="https://github.com/pegvin/csprite/actions/workflows/ci.yml">ci.yml - GitHub Actions</a> page & click on the latest run with green tick, scroll-down a little & download your desired build.</p>`;

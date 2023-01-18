@@ -4,10 +4,9 @@ website for the tiny pixel art editor
 ---
 ## Development
 
-You'll Need Jekyll To View & Edit The Website Locally, if you have jekyll installed run:
-```bash
-bundle exec jekyll serve
-```
+if you have python installed: `python3 -m http.server`
+if you have nodejs installed: `npx --yes http-server ./`
 
 ---
 # Thanks
+

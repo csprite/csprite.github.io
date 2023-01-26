@@ -60,7 +60,7 @@ async function LoadLatestGitBuilds() {
 			console.log("Valid Run Information Found!");
 		}
 
-		downloadContent.innerHTML = `<p><a href="${RunInformation.html_url}" target="_blank">Download the latest git build</a> of csprite (${RunInformation.created_at}) provides latest features but the features might be un-documented & the builds might be unstable.</p>`;
+		downloadContent.innerHTML = `<p><a href="${RunInformation.html_url + "#artifacts"}" target="_blank">Download the latest git build</a> of csprite (${RunInformation.created_at}) provides latest features but the features might be un-documented & the builds might be unstable.</p>`;
 	} catch(err) {
 		console.info(err);
 		downloadContent.innerHTML = `<p>Failed To Fetch Download Links, Go To <a href="https://github.com/pegvin/csprite/actions/workflows/ci.yml">ci.yml - GitHub Actions</a> page & click on the latest run with green tick, scroll-down a little & download your desired build.</p>`;

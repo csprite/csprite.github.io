@@ -35,39 +35,6 @@ async function LoadLatestStableBuilds() {
 	}
 }
 
-async function LoadLatestGitBuilds() {
-	let downloadContent = document.getElementById("downloadContentGit");
-	try {
-		let RunInformation = localStorage.getItem(`LatestGitBuilds`);
-		if (RunInformation) RunInformation = JSON.parse(RunInformation);
-		if (!RunInformation || TimeDifference(new Date().getTime(), RunInformation.timestamp) >= 1) {
-			console.log("No Valid Run Information Cache Found!");
-			const runs_response = await fetch("https://api.github.com/repos/pegvin/csprite/actions/runs");
-			const runs_json = await runs_response.json();
-			for (var i = 0; i < runs_json.workflow_runs.length; i++) {
-				if (runs_json.workflow_runs[i].conclusion == "success" && runs_json.workflow_runs[i].head_branch == "master") {
-					RunInformation = runs_json.workflow_runs[i];
-					break;
-				}
-			}
-			if (RunInformation == null) {
-				throw new Error("Cannot find a successful workflow run!");
-			}
-
-			RunInformation.timestamp = new Date().getTime();
-			localStorage.setItem(`LatestGitBuilds`, JSON.stringify(RunInformation));
-		} else {
-			console.log("Valid Run Information Found!");
-		}
-
-		downloadContent.innerHTML = `<p><a href="${RunInformation.html_url + "#artifacts"}" target="_blank">Download the latest git build</a> of csprite (${RunInformation.created_at}) provides latest features but the features might be un-documented & the builds might be unstable.</p>`;
-	} catch(err) {
-		console.info(err);
-		downloadContent.innerHTML = `<p>Failed To Fetch Download Links, Go To <a href="https://github.com/pegvin/csprite/actions/workflows/ci.yml">ci.yml - GitHub Actions</a> page & click on the latest run with green tick, scroll-down a little & download your desired build.</p>`;
-	}
-}
-
 window.onload = function() {
 	LoadLatestStableBuilds();
-	LoadLatestGitBuilds();
 }

@@ -35,6 +35,41 @@ async function LoadLatestStableBuilds() {
 	}
 }
 
+async function LoadLatestGitBuilds() {
+	let downloadContentGit = document.getElementById("downloadContentGit");
+	try {
+		let GhReleasesGit = localStorage.getItem(`GhReleasesGit`);
+		if (GhReleasesGit) GhReleasesGit = JSON.parse(GhReleasesGit);
+		if (!GhReleasesGit || TimeDifference(new Date().getTime(), GhReleasesGit.timestamp) >= 1) {
+			console.log("No Valid Gh Releases Git Cache Found!");
+			const response = await fetch("https://api.github.com/repos/pegvin/csprite/releases/tags/latest-git");
+			GhReleasesGit = await response.json();
+			GhReleasesGit.timestamp = new Date().getTime();
+			localStorage.setItem(`GhReleasesGit`, JSON.stringify(GhReleasesGit));
+		} else {
+			console.log("Valid Gh Releases Git Found!");
+		}
+
+		downloadContentGit.innerHTML = `
+<p>the latest git builds (${GhReleasesGit.published_at}) of csprite provides latest features but the features might be un-documented & the builds might be unstable.</p>
+<ul>`;
+		for (var i = 0; i < GhReleasesGit.assets.length; i++) {
+			downloadContentGit.innerHTML += `<li><a href="${GhReleasesGit.assets[i].browser_download_url}">${GhReleasesGit.assets[i].name}</a></li>`
+		}
+		downloadContentGit.innerHTML += `
+<li><a href="${GhReleasesGit.zipball_url}">Source code (.zip)</a></li>
+<li><a href="${GhReleasesGit.tarball_url}">Source code (.tar.gz)</a></li>
+</ul>
+<p>if above links aren't working, use this: <a href="https://github.com/pegvin/csprite/releases/tag/latest-git" target="_blank">GitHub Releases</a>
+`;
+	} catch(err) {
+		console.info(err);
+		downloadContentGit.innerHTML = `<p><a href="https://github.com/pegvin/csprite/releases/tag/latest-git" target="_blank">Download the latest git build</a> of csprite provides latest features but the features might be un-documented & the builds might be unstable.</p>`;
+	}
+}
+
 window.onload = function() {
 	LoadLatestStableBuilds();
+	LoadLatestGitBuilds();
 }
+

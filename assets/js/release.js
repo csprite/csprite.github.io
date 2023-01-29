@@ -1,6 +1,10 @@
 // Returns Difference Between 2 Dates In Hours
 function TimeDifference(date1, date2) {
-	return Math.abs(date1 - date2) / 36e5; // 36e5 = 60 * 60 * 1000
+	let a = moment(date1);
+	let b = moment(date2);
+	let diff = a.diff(b, 'hours');
+	console.log(`Difference Between ${date1} & ${date2} is ${diff}`);
+	return diff;
 }
 
 async function LoadLatestStableBuilds() {

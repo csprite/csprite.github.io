@@ -2,9 +2,7 @@
 function TimeDifference(date1, date2) {
 	let a = moment(date1);
 	let b = moment(date2);
-	let diff = a.diff(b, 'hours');
-	console.log(`Difference Between ${date1} & ${date2} is ${diff}`);
-	return diff;
+	return a.diff(b, 'hours');
 }
 
 async function LoadLatestStableBuilds() {

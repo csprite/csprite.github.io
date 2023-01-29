@@ -51,7 +51,7 @@ async function LoadLatestGitBuilds() {
 		}
 
 		downloadContentGit.innerHTML = `
-<p>the latest git builds (${GhReleasesGit.published_at}) of csprite provides latest features but the features might be un-documented & the builds might be unstable.</p>
+<p>the latest git builds (${moment(GhReleasesGit.published_at).fromNow()}) of csprite provides latest features but the features might be un-documented & the builds might be unstable.</p>
 <ul>`;
 		for (var i = 0; i < GhReleasesGit.assets.length; i++) {
 			downloadContentGit.innerHTML += `<li><a href="${GhReleasesGit.assets[i].browser_download_url}">${GhReleasesGit.assets[i].name}</a></li>`

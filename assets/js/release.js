@@ -21,7 +21,7 @@ async function LoadLatestStableBuilds() {
 		}
 
 		downloadContent.innerHTML = `
-<p>The current stable release of csprite is ${GhReleases.tag_name.substring(1, GhReleases.tag_name.length)} (${GhReleases.published_at}).</p>
+<p>The current stable release of csprite is ${GhReleases.tag_name.substring(1, GhReleases.tag_name.length)} (${moment(GhReleases.published_at).fromNow()}).</p>
 <ul>`;
 		for (var i = 0; i < GhReleases.assets.length; i++) {
 			downloadContent.innerHTML += `<li><a href="${GhReleases.assets[i].browser_download_url}">${GhReleases.assets[i].name}</a></li>`

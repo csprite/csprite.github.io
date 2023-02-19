@@ -1,9 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500;700&display=swap');
+@font-face {
+	font-family: 'Cascadia Mono';
+	src: url('/assets/fonts/CascadiaMono.ttf');
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Cascadia Mono';
+	src: url('/assets/fonts/CascadiaMonoItalic.ttf');
+	font-style: italic;
+}
 
 /* Global variables. */
 :root {
 	/* Set sans-serif & mono fonts */
-	--mono-font: 'Inconsolata', monospace;
+	--mono-font: 'Cascadia Mono', monospace;
 	--sans-font: var(--mono-font);
 	color-scheme: dark;
 	--bg: #111314;

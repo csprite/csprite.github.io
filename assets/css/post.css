@@ -33,3 +33,8 @@ ul li:before {
 	width: 2ch;
 	display: inline-block;
 }
+
+li > p {
+	display: inline-block;
+}
+

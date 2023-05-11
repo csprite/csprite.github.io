@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
+
+* { transition: color 0.12s linear; }
+
+html {
+	color: #EFEFEF;
+	background: #000000;
+	font-family: 'Roboto Slab', serif;
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0 auto;
+	max-width: 57rem;
+	line-height: 1.4;
+}
+
+p { margin: 0.5rem 0; }
+
+a, a:visited, button {
+	color: #0071e3;
+	cursor: pointer;
+	background: none;
+}
+
+a:hover {
+	color: #2997ff;
+}
+
+button {
+	border: 0;
+	outline: 1px solid #0071e3;
+	padding: 0.5rem 0.9rem;
+	margin: 0.1rem 0.2rem;
+	border-radius: 0.5rem;
+	transition: color 0.2s linear;
+}
+
+button:hover {
+	color: #FFF;
+	background: #0071e3;
+}
+
+ul, ol {
+	padding-left: 1.2rem !important;
+	list-style-type: disc;
+}
+
+li {
+	line-height: 1.7 !important;
+}
+
+code {
+	padding: 0.05rem 0.2rem;
+	background: #222;
+}
+
+footer {
+	text-align: center;
+	user-select: none;
+	margin-top: 4rem;
+	margin-bottom: 2rem;
+	padding-top: 1rem;
+	border-top: 1px solid #898EA4;
+}
+
+footer nav a {
+	margin: 0 0.3rem;
+	padding: 0.4rem 0.6rem;
+	text-decoration: none;
+	border-radius: 0.3rem;
+}
+
+footer nav a:hover {
+	background: rgba(50, 50, 50, 0.5);
+}

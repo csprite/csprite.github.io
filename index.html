@@ -7,10 +7,13 @@
 	<link rel="icon" type="image/png" href="/assets/favicon.png" />
 	<title>csprite - a tiny pixel art tool</title>
 	<link rel="stylesheet" type="text/css" href="/assets/css/normalize.css">
-	<link rel="stylesheet" type="text/css" href="/assets/css/simple.css">
-	<link rel="stylesheet" type="text/css" href="/assets/css/post.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/page.css">
 	<script src="/assets/js/scale.fix.js"></script>
 	<style type="text/css">
+		/* Make the body a nice central block */
+		body { display: grid; grid-template-columns: 1fr min(45rem, 90%) 1fr; }
+		body > * { grid-column: 2; }
+
 		.MainContainer { display: block; text-align: center; }
 		.ContainerRight { text-align: left; }
 		@media only screen and (max-width: 725px) {
@@ -29,7 +32,7 @@
 	<div class="ContainerLeft">
 		<img src="/assets/favicon.png">
 		<h1 style="margin: 0; font-size: 3.75rem;">CSprite</h1>
-		<p style="margin-top: 0;">A <small>Tiny</small> Pixel Art Editor.</p>
+		<p style="margin: 0.1rem 0 0.7rem 0;">A <small>Tiny</small> Pixel Art Editor.</p>
 		<a href="/downloads/"><button>Downloads</button></a>
 		<a href="https://github.com/pegvin/csprite" target="_blank"><button>GitHub</button></a>
 	</div>
@@ -55,4 +58,3 @@
 
 </body>
 </html>
-

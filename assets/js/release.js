@@ -1,4 +1,4 @@
-const RepoPath = "pegvin/csprite";
+const RepoPath = "csprite/csprite";
 
 // Returns Difference Between 2 Dates In Hours
 function TimeDifference(date1, date2) {

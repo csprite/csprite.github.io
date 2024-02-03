@@ -1,60 +1,43 @@
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="/assets/favicon.png" />
-	<title>csprite - a simple pixel art editor</title>
-	<link rel="stylesheet" type="text/css" href="/assets/css/normalize.css">
-	<link rel="stylesheet" type="text/css" href="/assets/css/page.css">
-	<script src="/assets/js/scale.fix.js"></script>
-	<style type="text/css">
-		/* Make the body a nice central block */
-		body { display: grid; grid-template-columns: 1fr min(45rem, 90%) 1fr; }
-		body > * { grid-column: 2; }
+---
+layout: default
+title: csprite
+---
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<style>
+	img.MainIcon {
+		display: block;
+		margin: 3rem auto 0.8rem auto;
+		max-width: 12rem;
+	}
+	div.links {
+		display: table;
+		margin: 0 auto;
+	}
+	a[role="button"] {
+		text-decoration: none;
+		display: inline-block;
+		margin: 0.7rem 0.1rem;
+		padding: 0.5rem 1rem;
+		outline: 1px solid var(--accent-color2);
+	}
+	a[role="button"]:hover {
+		text-decoration: none;
+		color: #FFF;
+		background-color: var(--accent-color1);
+		outline: 1px solid var(--accent-color1);
+	}
+</style>
 
-		.MainContainer { display: block; text-align: center; }
-		.ContainerLeft img { max-width: 15rem; }
-		.ContainerRight { text-align: left; }
-		@media only screen and (max-width: 725px) {
-			.MainContainer { margin: 11vh auto 0 auto; }
-		}
-		@media only screen and (min-width: 725px) {
-			.MainContainer { margin-top: 27vh; }
-			.ContainerLeft { float: left; }
-			.ContainerRight { float: right; }
-		}
-	</style>
-</head>
-<body>
-
-<div class="MainContainer">
-	<div class="ContainerLeft">
-		<img src="/assets/icon-80x32_9x.png">
-		<p style="margin: 0.7rem 0 0.7rem 0;">a simple pixel art editor</p>
-		<a href="/downloads/"><button>Downloads</button></a>
-		<a href="https://github.com/pegvin/csprite" target="_blank"><button>GitHub</button></a>
-	</div>
-
-	<div class="ContainerRight">
-		<h3>Features:</h3>
-		<ul>
-			<li>Beginner friendly</li>
-			<li>Extremely fast</li>
-			<li>Small & portable (Just ~1 MB)</li>
-			<li>Works on Windows, Linux & Mac</li>
-			<li>Free & open source</li>
-		</ul>
-	</div>
+<img class="MainIcon" alt="csprite" src="/assets/icon-80x32_9x.png">
+<p style="text-align: center;">A simple pixel art editor</p>
+<div class="links">
+	<a role="button" href="/downloads/">Download For Free</a>
+	<a role="button" href="https://discord.gg/aJZSJXt7zm">Join my Discord</a>
 </div>
-<footer>
-	<nav>
-		<a style="display: inline-block; text-align: justify;" href="/">Home</a>|<!--
-		--><a style="display: inline-block; text-align: justify;" href="/wiki/">Wiki</a>|<!--
-		--><a style="display: inline-block; text-align: justify;" href="https://github.com/csprite/csprite">GitHub</a>
-	</nav>
-</footer>
+<hr>
+<p style="text-align: center;">csprite (Pronounced <i>see-sprite</i>) is a easy to use <a href="https://en.wikipedia.org/wiki/Pixel_art">pixel art</a> editor, available for a cost of absolutely Free.</p>
+<br>
+<p>The project started as me trying to improve <a href="https://github.com/falconerd/sixel">Falconerd's Sixel</a>, but soon enough evolved into much more mature than it's origin.  csprite is still very young & while any suggestions or bug-reports are welcomed, It is not recommended to use it as a daily-driver because things can & do break.</p>
+<br>
 
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/github-cards/latest/widget.js"></script>

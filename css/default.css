@@ -35,25 +35,14 @@ header { flex: 0 1 auto; }
 main#MainContainer { flex: 1 1 auto; }
 footer { flex: 0 1 40px; }
 
-body {
-	tab-size: 4;
-	font-size: 1rem;
-	line-height: 1.5;
-}
-
 a {
 	color: var(--accent-color1);
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
 }
 
 hr {
 	margin: 0.5rem auto;
 	outline: none;
-	border: 1px solid var(--accent-color2);
+	border: 1px solid #000;
 }
 
 main#MainContainer {
@@ -65,41 +54,45 @@ main#MainContainer {
 header, footer {
 	text-align: center;
 	padding: 0.5rem 0;
+	line-height: 1;
+	user-select: none;
 }
 
 header {
-	user-select: none;
 	border-bottom: 1px solid var(--accent-color2);
 }
 
 footer {
-	margin-top: 0.5rem;
+	margin-top: 0.3rem;
 	border-top: 1px solid var(--accent-color2);
 }
 
-header nav a {
-	margin: 0 0.3rem;
-	padding: 0.2rem 0.3rem;
-	border-radius: 0.3rem;
+header nav a:not(:last-of-type), footer nav a:not(:last-of-type) {
+	border-right: 1px solid #000;
+	padding-right: 0.5rem;
 }
 
-pre.highlight {
-	background: #E8E8E8 !important;
-	padding: 0.7rem 0;
-}
-
-pre.highlight code {
-	padding: 0 0.7rem;
-}
-
-code {
-	color: #FFF;
-	background: var(--accent-color2);
-	padding: 0.15rem 0.2rem;
+header nav a:not(:first-of-type), footer nav a:not(:first-of-type) {
+	padding-left: 0.5rem;
 }
 
 pre, code {
 	overflow: auto;
+}
+
+pre {
+	background: #E8E8E8 !important;
+	padding: 0.7rem 0;
+}
+
+pre code {
+	padding: 0 0.7rem;
+}
+
+code:not(pre code) {
+	color: #FFF;
+	background: var(--accent-color2);
+	padding: 0.15rem 0.2rem;
 }
 
 img {

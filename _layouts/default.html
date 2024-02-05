@@ -20,7 +20,13 @@
 			<a style="display: inline-block; text-align: justify;" href="https://github.com/pegvin/csprite">GitHub</a>
 		</nav>
 	</header>
-	<main id="MainContainer">{{ content }}</main>
+	<main id="MainContainer">
+		{% if site.categories contains 'wiki' %}
+			{% include anchor_headings.html html=content anchorBody="#" %}
+		{% else %}
+			{{ content }}
+		{% endif %}
+	</main>
 	<footer>
 		<nav>
 			<a href="https://github.com/csprite/csprite.github.io">Source</a>

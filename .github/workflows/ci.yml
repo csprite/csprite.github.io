@@ -32,6 +32,13 @@ jobs:
         id: pages
         uses: actions/configure-pages@v4
 
+      - name: Get Other Docs
+        run: |
+          curl -L https://raw.githubusercontent.com/csprite/.github/master/CONTRIBUTING.md --output Contributing-Normal.md
+          echo -e "---\nlayout: default\npermalink: /contributing.html\n---\n" >> Contributing.md
+          cat Contributing-Normal.md >> Contributing.md
+          rm Contributing-Normal.md
+
       - name: Build with Jekyll
         env:
           JEKYLL_ENV: "production" # Needed For Jekyll Minifier To Run

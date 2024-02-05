@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+body {
+	font-family: 'Bitter', serif;
+	font-weight: 400;
+
+	text-rendering: optimizeLegibility;
+	white-space: normal;
+	word-break: break-word;
+	overflow-wrap: break-word;
+	hyphens: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Bitter', serif;
+}
+
+h1 {
+	font-weight: 700;
+}
+
+h2, h3 {
+	font-weight: 600;
+}
+
+h4, h5, h6 {
+	font-weight: 500;
+}

@@ -3,15 +3,29 @@
 	transition: all 0.15s linear;
 }
 
-*:not(ul, ol, li) {
-	margin: 0;
-	padding: 0;
-}
-
 :root {
 	font-size: 18px;
 	--accent-color1: #583EFF;
 	--accent-color2: #898EA4;
+}
+
+@media only screen and (max-width: 800px) {
+	:root {
+		font-size: 14px;
+	}
+	main#MainContainer {
+		padding: 0.5rem;
+	}
+}
+
+::-moz-selection {
+	color: #FFF;
+	background: var(--accent-color1);
+}
+  
+::selection {
+	color: #FFF;
+	background: var(--accent-color1);
 }
 
 /* https://stackoverflow.com/a/24979148/14516016 - Yeah, CSS Sucks Ass */
@@ -24,6 +38,7 @@ footer { flex: 0 1 40px; }
 body {
 	tab-size: 4;
 	font-size: 1rem;
+	line-height: 1.5;
 }
 
 a {
@@ -43,13 +58,12 @@ hr {
 
 main#MainContainer {
 	margin: 0 auto;
-	width: 45rem;
+	min-width: 1px;
 	max-width: 45rem;
 }
 
 header, footer {
 	text-align: center;
-	border-top: 1px solid var(--accent-color2);
 	padding: 0.5rem 0;
 }
 
@@ -60,6 +74,7 @@ header {
 
 footer {
 	margin-top: 0.5rem;
+	border-top: 1px solid var(--accent-color2);
 }
 
 header nav a {
@@ -68,16 +83,34 @@ header nav a {
 	border-radius: 0.3rem;
 }
 
-div.highlight {
+pre.highlight {
 	background: #E8E8E8 !important;
-	padding: 0.7rem;
-	margin: 0.7rem auto;
+	padding: 0.7rem 0;
+}
+
+pre.highlight code {
+	padding: 0 0.7rem;
+}
+
+code {
+	color: #FFF;
+	background: var(--accent-color2);
+	padding: 0.15rem 0.2rem;
+}
+
+pre, code {
+	overflow: auto;
 }
 
 img {
 	max-width: 100%;
+	user-select: none;
 }
 
 ul, ol {
 	margin: 0.2rem 0;
+}
+
+li {
+	margin-bottom: 0.5rem;
 }

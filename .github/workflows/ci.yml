@@ -35,8 +35,8 @@ jobs:
       - name: Get Other Docs
         run: |
           curl -L https://raw.githubusercontent.com/csprite/.github/master/CONTRIBUTING.md --output Contributing-Normal.md
-          echo -e "---\nlayout: default\npermalink: /contributing.html\n---\n" >> Contributing.md
-          cat Contributing-Normal.md >> Contributing.md
+          echo -e "---\nlayout: default\npermalink: /contribute.html\n---\n" >> contribute.md
+          cat Contributing-Normal.md >> contribute.md
           rm Contributing-Normal.md
 
       - name: Build with Jekyll

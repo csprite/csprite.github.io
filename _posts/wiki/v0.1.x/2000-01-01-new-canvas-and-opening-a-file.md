@@ -1,6 +1,5 @@
 ---
 layout: default
-date: 2000-01-01 00:00:00 +0530
 tags: v0.0.1
 categories: wiki v0.0.1
 title: New Canvas & Opening A File

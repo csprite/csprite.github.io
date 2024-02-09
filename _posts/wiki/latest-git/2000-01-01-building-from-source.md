@@ -1,6 +1,5 @@
 ---
 layout: default
-date: 2000-01-01 00:00:00 +0530
 tags: latest-git
 categories: wiki latest-git
 title: Building from source

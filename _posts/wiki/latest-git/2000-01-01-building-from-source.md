@@ -12,16 +12,14 @@ title: Building from source
    - [Setup Linux](#linux)
    - [Setup macOS](#macos)
 
-2. Build & Install Required Libraries
-   - [Build & Install SDL2](#build--install-sdl2)
-   - [Install Numpy & Pillow](#install-numpy--pillow)
-
-3. [Build Csprite](#build-csprite)
+2. [Install Numpy & Pillow](#install-numpy--pillow)
+3. [Pre-Build Instructions](#pre-build-instructions)
+3. [Build Instructions](#build-instructions)
 
 ## Windows
 
-1. install [Visual Studio]([https://www.msys2.org/](https://visualstudio.microsoft.com/downloads/)) or [Visual Studio: Build Tools](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022).
-2. whichever version of Visual Studio you install make sure the following components are selected to installed, everything else can be completely disabled to save bandwidth:
+1. Install [Visual Studio](https://visualstudio.microsoft.com/downloads/) or [Visual Studio: Build Tools](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022).
+2. In the 'Visual Studio Installer' ensure the following components are selected to installed, everything else can be completely disabled to save bandwidth:
    - Desktop development with C++
      - C++ AddressSanitizer
      - Clang Compiler For Windows
@@ -29,21 +27,30 @@ title: Building from source
        - Windows 10 SDK (XX.X.XXXXX.X)
        - Windows 11 SDK (XX.X.XXXXX.X)
 
-3. install [python](https://www.python.org/) since few scripts depend on them.
-4. install [git](https://git-scm.com/downloads) to clone repositories.
+3. Install python & git
+   - Can be done manually:
+     - Install [python](https://www.python.org/)
+     - Install [git](https://git-scm.com/downloads)
+
+   - or Use [chocolatey](https://docs.chocolatey.org/en-us/choco/setup)
+     - `choco install python git`
+
+   - or Use [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/#install-winget)
+     - `winget install -e --id Python.Python.3.9`
+     - `winget install -e --id Git.Git`
 
 ## Linux
 
-1. install any compiler toolchain:
-   - GCC: GNU Compiler Collection
-     - Debian & Children: `apt install gcc` (g++ should be automatically installed by installing gcc)
-     - Arch & Children: `pacman -S gcc` (g++ comes with gcc)
+1. Install any 1 of the 2 compiler toolchain listed below:
+   - GCC (gcc & g++)
+     - Debian & Children: `apt install gcc`
+     - Arch & Children: `pacman -S gcc`
 
-   - Clang: C language family frontend for LLVM
-     - Debian & Children: `apt install clang` (clang++ comes with clang)
-     - Arch & Children: `pacman -S clang` (clang++ comes with clang)
+   - Clang (clang & clang++)
+     - Debian & Children: `apt install clang`
+     - Arch & Children: `pacman -S clang`
 
-2. install any build system:
+2. Install any 1 of the 2 build system listed below:
    - Ninja Build
      - Debian & Children: `apt install ninja-build`
      - Arch & Children: `pacman -S ninja`
@@ -52,52 +59,58 @@ title: Building from source
      - Debian & Children: `apt install make`
      - Arch & Children: `pacman -S make`
 
-3. install Other Dependencies:
-   - Arch & Children: `pacman -S git cmake sdl2 python3`
-   - Debian & Children: `apt install git cmake libsdl2-2.0-0 libsdl2-dev python3 python3-pip`
-     - SDL2 on Debian & Children's Repository are very old and csprite requires SDL2 v2.0.17 or greater, so you will need to build & install it yourself from source
+3. Install **required** dependencies:
+   - Arch & Children: `pacman -S git cmake libxrandr libxinerama libx11 libxcursor libxi python3`
+   - Debian & Children: `apt install git cmake libxrandr-dev libxrandr2 libxinerama-dev libxinerama1 libx11-dev libx11-6 libxcursor-dev libxcursor1 libxi-dev libxi6 python3 python3-pip`
 
 ## macOS
 
-1. install a compiler toolchain:
-   - Xcode: https://developer.apple.com/xcode/
-   - GCC: GNU Compiler Toolchain: `brew install gcc`
-   - Clang: C language family frontend for LLVM: as far as i know clang is pre-installed on MacOS
+1. Install 1 of any 3 compiler toolchain listed below:
+   - Xcode: <https://developer.apple.com/xcode/> (Technically not a toolchain, but can still be used if already installed but other alternatives are much more smaller in size)
+   - GCC: `brew install gcc`
+   - Clang: as far as i know clang is pre-installed on MacOS
 
-2. install other deps with homebrew:
-   - `brew install git cmake sdl2 python@3.9`
-
-## Build & Install SDL2
-
-this step is required on [Window](#windows) or Debian & Debian based linux distributions since the package is either too old or isn't available at all (like on windows).
-
-1. Get SDL2 v2.26.5 Source Code: `git clone https://github.com/libsdl-org/SDL/ -b release-2.26.5`
-2. Move into newly cloned directory & Generate Build Files:
-   - `cd SDL/`
-   - Build & Install using these [Build & Install Instructions](#build--install-instructions)
+2. Install **required** deps with homebrew:
+   - `brew install git cmake python@3.9`
 
 ## Install Numpy & Pillow
 
 - Python Package `Pillow` & `numpy` can be installed using various methods:
-   - Python PIP: `python -m pip install --upgrade Pillow numpy` (Works where-ever pip is installed, which comes installed with python on Arch, Homebrew & Windows on Debian & Children you will need to install `python3-pip` (already done in setup).
-   - Homebrew: `homebrew install pillow numpy`
+   - macOS: `homebrew install pillow numpy`
    - Arch & Children: `pacman -S python-numpy python-pillow`
+   - Windows & Other: `python -m pip install --upgrade Pillow numpy`
 
-## Build & Install Instructions
+## Pre-Build Instructions
+
+1. Clone csprite Repository: `git clone https://github.com/csprite/csprite --recursive`
+2. Move Into Cloned Repository Folder: `cd csprite`
+3. Generate Icons & Assets:
+   - Icons: `python tools/create_icons.py`
+   - Assets: `python tools/create_assets.py`
+4. Build Csprite using [Build Instructions](#build-instructions) & you should have your final binary/package in a folder name on of the following: `Release`, `RelWithDebInfo` or `Debug`.
+
+## Build Instructions
 
 these instructions are used for build SDL2 & Csprite.
 
 1. Generate Build Files: `cmake -S ./ -B ./build/ <other-options>`
-   - `-DCMAKE_BUILD_TYPE=Release` this option enables all sorts of optimizations & stuff is recommended if you're building for daily use, other possible values are: `RelWithDebInfo` & `Debug`.
+   - `-DCMAKE_BUILD_TYPE=Release`, all possible values:
+     - `Debug`
+     - `Release`
+     - `RelWithDebInfo`
    - `-G` option specifies the generator to use.
-     - On Linux, you can use `-G "Ninja"` (recomendded) or `-G "Unix Makefiles"`.
-     - On MacOS, you can use: `-G "Xcode"` (recomendded) or `-G "Unix Makefiles"`.
+     - On Linux, you can use `-G "Ninja"` or `-G "Unix Makefiles"`.
+     - On MacOS, you can use: `-G "Xcode"` or `-G "Unix Makefiles"`.
      - On Windows, since you install Visual Studio you can use the following generators:
-       - you can specify any of the follow Visual Studio generators, depending on the version of Visual Studio you installed: `Visual Studio 17 2022`, `Visual Studio 16 2019`, `Visual Studio 15 2017` & `Visual Studio 14 2015`
-   - `-T "ClangCL"` flag specifies the toolset to use, this is meant for Windows & is used to Compile using Clang since it doesn't have weird rules & regulations like MSVC.
+       - you can specify the Visual Studio generator depending on the version of Visual Studio you installed, possible values are:
+         - `Visual Studio 17 2022`
+         - `Visual Studio 16 2019`
+         - `Visual Studio 15 2017`
+         - `Visual Studio 14 2015`
+   - `-T "ClangCL"` flag specifies the toolset to use, this is meant for Windows & is used to Compile using Clang since MSVC is dumb.
    - `-A` flag specifies the platform you are building the library for & this flag is only used on Window.
-     - use `-A "x64"` for x64 or x86_64 platform.
-     - use `-A "Win32"` for x86 or i686 platform.
+     - use `-A "x64"` for x64/x86_64 platform.
+     - use `-A "Win32"` for x86/i686 platform.
    - `-DCMAKE_OSX_ARCHITECTURES=x86_64` flag specifies the Mac CPU Architecture to build for.
      - use `arm64` for Apple Silicon M1 or M2 (or new CPUs apple might introduce with arm64 architecture).
      - use `x86_64` for Apple CPUs with x64 or x86_64 architecture, this can be used with Apple's M1 & M2 chips since they can run x64 binaries too.
@@ -105,17 +118,5 @@ these instructions are used for build SDL2 & Csprite.
 
 2. Build The Code With Generated Build Files: `cmake --build ./build/ <other-options>`
    - `--config Release` flag specifies the build configuration to build for, the value should be same as the value of `-DCMAKE_BUILD_TYPE` flag above.
-   - `--parallel 4` flag specifies the number of jobs while building, the value should be set to your number of CPU Cores & if it causes it to lag set the value to something smaller.
+   - `--parallel 4` flag specifies the number of jobs while building, the value should be set to your number of CPU Cores & if affects your systems performance set the value to something lower.
 
-3. Install: `sudo cmake --install ./build/ --strip`
-   - `--config Release` flag is same as the flag in step 2.
-   - this step should be only used when building a library and will require administrative permissions, so on linux you might need to use `sudo` and on windows you will need to run your terminal "Run as administrator".
-
-## Build Csprite
-
-1. Clone Csprite Repository: `git clone https://github.com/pegvin/csprite --recursive`
-2. Move Into Cloned Repository Folder: `cd csprite`
-3. Generate Icons & Assets:
-   - Icons: `python tools/create_icons.py`
-   - Assets: `python tools/create_assets.py`
-4. Build Csprite using [Build & Install Instructions](#build--install-instructions) & you should have your final binary/package in a folder name on of the following: `Release`, `RelWithDebInfo` or `Debug`.

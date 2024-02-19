@@ -18,14 +18,17 @@ title: Building from source
 
 ## Windows
 
-1. Install [Visual Studio](https://visualstudio.microsoft.com/downloads/) or [Visual Studio: Build Tools](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022).
-2. In the 'Visual Studio Installer' ensure the following components are selected to installed, everything else can be completely disabled to save bandwidth:
-   - Desktop development with C++
-     - C++ AddressSanitizer
-     - Clang Compiler For Windows
-     - One Of These SDKs:
-       - Windows 10 SDK (XX.X.XXXXX.X)
-       - Windows 11 SDK (XX.X.XXXXX.X)
+1. Install Any 1 of the 2 Toolchains:
+   1. Install MinGW via [chocolatey](https://docs.chocolatey.org/en-us/choco/setup)
+      - `choco install mingw`
+   2. Install [Visual Studio](https://visualstudio.microsoft.com/downloads/) or [Visual Studio: Build Tools](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022).
+      - In the 'Visual Studio Installer' ensure the following components are selected to installed, everything else can be completely disabled to save bandwidth:
+         - Desktop development with C++
+           - C++ AddressSanitizer
+           - Clang Compiler For Windows
+           - One Of These SDKs:
+             - Windows 10 SDK (XX.X.XXXXX.X)
+             - Windows 11 SDK (XX.X.XXXXX.X)
 
 3. Install python & git
    - Can be done manually:
@@ -101,13 +104,13 @@ these instructions are used for build SDL2 & Csprite.
    - `-G` option specifies the generator to use.
      - On Linux, you can use `-G "Ninja"` or `-G "Unix Makefiles"`.
      - On MacOS, you can use: `-G "Xcode"` or `-G "Unix Makefiles"`.
-     - On Windows, since you install Visual Studio you can use the following generators:
+     - On Windows, you can use: `-G "MinGW Makefiles"` or If you installed Visual Studio you can use the following generators:
        - you can specify the Visual Studio generator depending on the version of Visual Studio you installed, possible values are:
          - `Visual Studio 17 2022`
          - `Visual Studio 16 2019`
          - `Visual Studio 15 2017`
          - `Visual Studio 14 2015`
-   - `-T "ClangCL"` flag specifies the toolset to use, this is meant for Windows & is used to Compile using Clang since MSVC is dumb.
+   - `-T "ClangCL"` flag specifies the toolset to use, this is meant for Windows (Visual Studio only) & is used to Compile using Clang since MSVC is dumb.
    - `-A` flag specifies the platform you are building the library for & this flag is only used on Window.
      - use `-A "x64"` for x64/x86_64 platform.
      - use `-A "Win32"` for x86/i686 platform.

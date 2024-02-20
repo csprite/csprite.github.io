@@ -32,12 +32,14 @@ jobs:
         id: pages
         uses: actions/configure-pages@v4
 
-      - name: Get Other Docs
+      - name: Get Other Files
         run: |
           curl -L https://raw.githubusercontent.com/csprite/.github/master/CONTRIBUTING.md --output Contributing-Normal.md
           echo -e "---\nlayout: default\npermalink: /contribute.html\n---\n" >> contribute.md
           cat Contributing-Normal.md >> contribute.md
           rm Contributing-Normal.md
+
+          curl -L https://raw.githubusercontent.com/csprite/languages/master/structure.js --output assets/structure.js
 
       - name: Build with Jekyll
         env:

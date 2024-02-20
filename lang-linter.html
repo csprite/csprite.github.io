@@ -1,0 +1,104 @@
+---
+permalink: /lang-linter.html
+layout: default
+title: Lint Language Files
+---
+
+<h1 style="text-align: center;">Lint Language Files</h1>
+<div style="margin: 1rem auto; text-align: center;">
+	<button onclick="LintFile();">Lint</button>
+	<button onclick="OpenFromComputer();">Open from Computer</button>
+	<button onclick="ClearLog();">Clear Log</button>
+</div>
+<textarea id="UserCode" style="font-family: monospace; width: 100%; height: 60%; padding: 0.5rem;" placeholder="Your .ini file Here"></textarea>
+<div id="UserLog"></div>
+
+<!-- For Development You must Fetch one Yourself, on CI it's done automatically -->
+<script type="text/javascript" src="/assets/structure.js"></script>
+<script type="text/javascript" defer>
+// https://stackoverflow.com/a/12452845/14516016
+function parseINIString(s){let t={section:/^\s*\[\s*([^\]]*)\s*\]\s*$/,param:/^\s*([^=]+?)\s*=\s*(.*?)\s*$/,comment:/^\s*;.*$/},e={},n=s.split(/[\r\n]+/),a=null;return n.forEach((function(s){if(!t.comment.test(s))if(t.param.test(s)){var n=s.match(t.param);a?e[a][n[1]]=n[2]:e[n[1]]=n[2]}else if(t.section.test(s)){n=s.match(t.section);e[n[1]]={},a=n[1]}else 0==s.length&&a&&(a=null)})),e}
+
+function OpenFromComputer() {
+	fInput = document.createElement("input");
+	fInput.type = 'file';
+	fInput.style.display = 'none';
+
+	fInput.onchange = function(e) {
+		let file = e.target.files[0];
+		if (!file) return;
+
+		let reader = new FileReader();
+		reader.onload = function(e) {
+			document.getElementById("UserCode").value = e.target.result;
+			document.body.removeChild(fInput);
+		}
+		reader.readAsText(file);
+	}
+
+	document.body.appendChild(fInput);
+	fInput.click();
+}
+
+function log(msg) {
+	document.getElementById("UserLog").innerHTML += `<div>Info: ${msg}</div>`;
+}
+function warn(msg) {
+	document.getElementById("UserLog").innerHTML += `<div>Warning: ${msg}</div>`;
+}
+function error(msg) {
+	document.getElementById("UserLog").innerHTML += `<div>Error: ${msg}</div>`;
+}
+function ClearLog() {
+	document.getElementById('UserLog').innerHTML = '';
+}
+
+function LintFile() {
+	ClearLog();
+
+	const Parsed = parseINIString(document.getElementById("UserCode").value);
+	let warnings = 0;
+	let errors = 0;
+	let Messages = [];
+
+	// Ensure All Sections Defined in `Structure`
+	// exist in the parsed ini file
+	Object.keys(Structure).forEach(function(section) {
+		if (Parsed[section] == null) {
+			error(`Section '${section}' is required but not found`);
+			errors++;
+		}
+	});
+
+	// Ensure All Sections in parsed ini file `Parsed` are known
+	Object.keys(Parsed).forEach(function(section) {
+		if (Structure[section] == null) {
+			warn(`Unknown Section '${section}'`);
+			warnings++;
+		} else {
+			// Ensure All Required Sub-Sections Defined in `Structure[section]`
+			// exist in the parsed ini file
+			Object.keys(Structure[section]).forEach(function(subSection) {
+				if (Structure[section][subSection].required) {
+					if (Parsed[section][subSection] == null) {
+						error(`Sub-Section '${subSection}' in Section '${section}' is required but not found`);
+						errors++;
+					}
+				}
+			});
+
+			// Ensure All Sub-Sections in parsed ini file `Parsed[section]` are known
+			Object.keys(Parsed[section]).forEach(function(subSection) {
+				if (Structure[section][subSection] == null) {
+					warn(`Unknown Sub-Section '${subSection}' in Section '${section}'`);
+					warnings++;
+				}
+			});
+		}
+	});
+
+	if (errors == 0) {
+		log(`Ok (${warnings} ${warnings != 1 ? "Warnings" : "Warning"})`);
+	}
+}
+</script>

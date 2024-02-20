@@ -109,14 +109,6 @@ function LintFile() {
 	let errors = 0;
 	let Messages = [];
 
-	error(`Section '' is required but not found`);
-	error(`Section '' is required but not found`);
-	error(`Section '' is required but not found`);
-	error(`Section '' is required but not found`);
-	error(`Section '' is required but not found`);
-	error(`Section '' is required but not found`);
-	error(`Section '' is required but not found`);
-
 	// Ensure All Sections Defined in `Structure`
 	// exist in the parsed ini file
 	Object.keys(Structure).forEach(function(section) {

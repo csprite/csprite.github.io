@@ -28,9 +28,6 @@
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
 	font-smooth: never;
 	font-kerning: normal;
 	font-feature-settings: kern;
@@ -72,31 +69,29 @@ h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p {
 	margin-top: 0.5rem;
 }
 
-ul, ol {
-	margin-top: 1rem;
+ol {
+	list-style: decimal;
 }
 ul {
-	padding-left: 1.25rem;
+	list-style: disc;
 }
-ol {
+
+/* Styles For Lists Inside Lists */
+ul ul, ul ol,
+ol ol, ol ul {
 	padding-left: 1.75rem;
 }
-ul > li:not(:first-of-type), ol > li:not(:first-of-type) {
+
+li {
 	margin-top: 0.25rem;
 }
-ul {
-	list-style: none;
-}
-ul li:before {
-	content: "- ";
-	margin-left: -2ch;
-	width: 2ch;
-	display: inline-block;
+li p {
+	margin: 0 !important;
 }
 
 a, a:visited {
-	color: #000;
-	text-decoration-color: #000 !important;
+	color: #00B;
+	text-decoration-color: #00B !important;
 	line-height: 1.5 !important;
 	text-decoration: underline;
 	text-underline-offset: 0.17rem;
